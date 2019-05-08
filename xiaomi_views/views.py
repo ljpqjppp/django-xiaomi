@@ -1,6 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from xiaomi_users.forms import UserLogin,RegForm,UserPhoneCommentForm
 from xiaomi_users.models import PhoneDetail
+# from cart.cart import Cart
+# from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -62,3 +64,26 @@ def index1(request, phone_id):
                                            "reg_form": register_form, 'phone': phone, "comment_form": comment_form,
                                            "comments": comments})
 
+
+
+# def add_to_cart(request, phone_id, quantity):
+#     phone = PhoneDetail.objects.get(phone_id=phone_id)
+#     cart = Cart(request)
+#     cart.add(phone, phone.price, quantity)
+#     return redirect('/')
+#
+#
+# def remove_from_cart(request, phone_id):
+#     phone = PhoneDetail.objects.get(phone_id=phone_id)
+#     cart = Cart(request)
+#     cart.remove(phone)
+#     return redirect('/cart/')
+#
+#
+# @login_required
+# def cart(request):
+#     all_categories = models.Category.objects.all()
+#     cart = Cart(request)
+#     template = get_template('cart.html')
+#     html = template.render(context=locals(), request=request)
+#     return HttpResponse(html)

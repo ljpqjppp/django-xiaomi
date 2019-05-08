@@ -6,5 +6,8 @@ urlpatterns = [
     url(r'^logout$', user_logout, name='user_logout'),
     url(r'^register$', user_register, name='user_register'),
     url(r"^comment/(?P<phone_id>\d+)$", user_comment, name="user_comment"),
+    # url(r'^cart/$', cart),
+    # url(r'^additem/(\d+)/(\d+)/$', add_to_cart, name='additem-url'),
+    # url(r'^removeitem/(\d+)/$', remove_from_cart, name='removeitem-url'),
 
 ]

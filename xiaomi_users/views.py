@@ -5,7 +5,6 @@ from django.contrib.auth import login, logout
 from django.contrib.auth.hashers import check_password,make_password
 from copy import deepcopy
 
-
 def user_login(request):
     if request.method == 'POST':
         # refer_url = request.META['HTTP_REFERER']
