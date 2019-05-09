@@ -6,12 +6,22 @@ from xiaomi_users.models import PhoneDetail
 
 
 def index(request):
-    # longin_form = UserLogin()
-    # register_form = RegForm()
+
     star_phones = PhoneDetail.objects.filter(kind__name='star')
+    dajiadian = PhoneDetail.objects.filter(kind__name='dajiadian')
+    xiaojiadian = PhoneDetail.objects.filter(kind__name='xiaojiadian')
+    CommentModel = UserPhoneCommentForm.Meta.model
+    # comments = CommentModel.objects.all()
+
     return render(request, 'index.html', {
-                                            'star_phones':star_phones
+                                            'star_phones':star_phones,
+                                            'dajiadian': dajiadian,
+                                            'xiaojiadian': xiaojiadian,
+                                            #  'comments_da':comments_da,
+                                            # 'comments_xiao': comments_xiao
+                                            # 'comments': comments
                                           })
+
 
 def login(request):
     longin_form = UserLogin()
@@ -54,7 +64,6 @@ def index1(request, phone_id):
                                     # 因为pk=movie_id查询出来只会有一天数据 所以切片只能为[0]，不切片他不会查询
     except Exception:
         return HttpResponse('找不到')
-    # return HttpResponse(movie.title)
     login_form = UserLogin()
     register_form = RegForm()
     comment_form = UserPhoneCommentForm()
@@ -63,6 +72,16 @@ def index1(request, phone_id):
     return render(request, 'xiangqing.html', {'login_form': login_form,
                                            "reg_form": register_form, 'phone': phone, "comment_form": comment_form,
                                            "comments": comments})
+
+
+def search(request):
+    phone_name = request.POST['phone_name']
+    try:
+        phone = PhoneDetail.objects.filter(title=phone_name)[0]
+    except Exception:
+        return HttpResponse('找不到')
+    return render(request, 'xiangqing.html', {'phone': phone})
+
 
 
 

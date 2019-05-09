@@ -19,7 +19,7 @@ import os
 from django.views.static import serve
 from xiaomi.settings import BASE_DIR, MEDIA_ROOT
 from xiaomi_views.views import index, login, register, gouwuche, \
-                                dingdan, liebiao, self_info, index1
+                                dingdan, liebiao, self_info, index1, search
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^index/', index, name='index'),
@@ -33,5 +33,6 @@ urlpatterns = [
     url(r'^liebiao/', liebiao, name='liebiao'),
     url(r'^self_info/', self_info, name='self_info'),
     url(r'^index1/(?P<phone_id>\d+)$', index1, name='single_log'),
+    url(r'^search/', search, name='search'),
 
 ]

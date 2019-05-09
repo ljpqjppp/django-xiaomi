@@ -27,3 +27,7 @@ class UserPhoneCommentForm(forms.ModelForm):
     class Meta:
         model = UserPhoneComment
         fields = ('user', 'phone', 'context')
+
+#
+# class Usersearch(forms.Form):
+#     phone_name = forms.CharField(max_length=20, min_length=3)

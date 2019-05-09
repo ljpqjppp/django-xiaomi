@@ -80,11 +80,12 @@
 				</ul>
 			</div>
 			<div class="search fr">
-				<form action="" method="post">
+				<form action="{% url 'search' %}" method="post">
 					<div class="text fl">
-						<input type="text" class="shuru"  placeholder="小米mix3&nbsp;小米9现货">
+						<input type="text" class="shuru" name="phone_name"  placeholder="小米mix3&nbsp;小米9现货">
+{#                        {{ search_form.phone_name }}#}
 					</div>
-					<div class="submit fl">
+					<div class="submit fr">
 						<input type="submit" class="sousuo" value="搜索"/>
 					</div>
 					<div class="clear"></div>
@@ -1417,7 +1418,9 @@
 					<div class="pinpai"><a href="">{{ i.title }}</a></div>
 					<div class="youhui">{{ i.desc }}</div>
 					<div class="jiage">{{ i.price }}元起</div>
+
 				</div>
+
                 {% endfor %}
 {#				<div class="mingxing fl">#}
 {#					<div class="sub_mingxing"><a href=""><img src="{% static 'image/2-2.jpg' %}" alt=""></a></div>#}
@@ -1452,11 +1455,12 @@
 				<div class="content">
 					<div class="remen fl"><a href=""><img src="{% static 'image/3-1.jpg' %}" width="240" height="300"></a>
 					</div>
+                    {% for i in dajiadian %}
 					<div class="remen fl">
 						<div class="xinpin"><span>新品</span></div>
-						<div class="tu"><a href=""><img src="{% static 'image/3-2.jpg' %}" width="150" height="150"></a></div>
-						<div class="miaoshu"><a href="">米家互联网洗烘一体机</a></div>
-						<div class="jiage">2199元</div>
+						<div class="tu"><a href="{% url 'single_log' i.pk %}"><img src="{{ MEDIA_URL }}{{ i.img }}" width="150" height="150"></a></div>
+						<div class="miaoshu"><a href="">{{ i.title }}</a></div>
+						<div class="jiage">{{ i.price }}元</div>
 						<div class="pingjia">372人评价</div>
 						<div class="piao">
 							<a href="">
@@ -1465,89 +1469,93 @@
 							</a>
 						</div>
 					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:#fff"></span></div>
-						<div class="tu"><a href=""><img src="{% static 'image/3-3.png' %} " width="150" height="150"></a></div>
-						<div class="miaoshu"><a href="">米家互联网立式空调C1</a></div>
-						<div class="jiage">2999元</div>
-						<div class="pingjia">372人评价</div>
-                        		<div class="piao">
-							<a href="">
-								<span>米家空调制冷很好！</span>
-								<span>来至于mi狼牙的评价</span>
-							</a>
-						</div>
-					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:red">享6折</span></div>
-						<div class="tu"><a href=""><img src="{% static 'image/3-4.png' %}" width="150" height="150"></a></div>
-						<div class="miaoshu"><a href="">15.6"笔记本i5 4g MX110</a></div>
-						<div class="jiage">4199元</div>
-						<div class="pingjia">372人评价</div>
-						<div class="piao">
-							<a href="">
-								<span>发货速度很快！电脑运行很快！</span>
-								<span>来至于mi狼牙的评价</span>
-							</a>
-						</div>
-					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:#fff"></span></div>
-						<div class="tu"><a href=""><img src="{% static 'image/3-5.jpg' %}" width="150" height="150"></a></div>
-						<div class="miaoshu"><a href="">13.3"小米笔记本Air四核i7</a></div>
-						<div class="jiage">5999元</div>
-						<div class="pingjia">372人评价</div>
-						<div class="piao">
-							<a href="">
-								<span>发货速度很快！轻薄好用</span>
-								<span>来至于mi狼牙的评价</span>
-							</a>
-						</div>
-					</div>
+                    {% endfor %}
+{#					<div class="remen fl">#}
+{#						<div class="xinpin"><span style="background:#fff"></span></div>#}
+{#						<div class="tu"><a href=""><img src="{% static 'image/3-3.png' %} " width="150" height="150"></a></div>#}
+{#						<div class="miaoshu"><a href="">米家互联网立式空调C1</a></div>#}
+{#						<div class="jiage">2999元</div>#}
+{#						<div class="pingjia">372人评价</div>#}
+{#                        		<div class="piao">#}
+{#							<a href="">#}
+{#								<span>米家空调制冷很好！</span>#}
+{#								<span>来至于mi狼牙的评价</span>#}
+{#							</a>#}
+{#						</div>#}
+{#					</div>#}
+{#					<div class="remen fl">#}
+{#						<div class="xinpin"><span style="background:red">享6折</span></div>#}
+{#						<div class="tu"><a href=""><img src="{% static 'image/3-4.png' %}" width="150" height="150"></a></div>#}
+{#						<div class="miaoshu"><a href="">15.6"笔记本i5 4g MX110</a></div>#}
+{#						<div class="jiage">4199元</div>#}
+{#						<div class="pingjia">372人评价</div>#}
+{#						<div class="piao">#}
+{#							<a href="">#}
+{#								<span>发货速度很快！电脑运行很快！</span>#}
+{#								<span>来至于mi狼牙的评价</span>#}
+{#							</a>#}
+{#						</div>#}
+{#					</div>#}
+{#					<div class="remen fl">#}
+{#						<div class="xinpin"><span style="background:#fff"></span></div>#}
+{#						<div class="tu"><a href=""><img src="{% static 'image/3-5.jpg' %}" width="150" height="150"></a></div>#}
+{#						<div class="miaoshu"><a href="">13.3"小米笔记本Air四核i7</a></div>#}
+{#						<div class="jiage">5999元</div>#}
+{#						<div class="pingjia">372人评价</div>#}
+{#						<div class="piao">#}
+{#							<a href="">#}
+{#								<span>发货速度很快！轻薄好用</span>#}
+{#								<span>来至于mi狼牙的评价</span>#}
+{#							</a>#}
+{#						</div>#}
+{#					</div>#}
 					<div class="clear"></div>
 				</div>
 				<div class="content">
 					<div class="remen fl"><a href=""><img src="{% static 'image/3-6.jpg' %}" width="240" height="300"></a>
 					</div>
+                    {% for i in xiaojiadian %}
+
 					<div class="remen fl">
 						<div class="xinpin"><span style="background:#fff"></span></div>
-						<div class="tu"><a href=""><img src="{% static 'image/3-7.png' %}" width="150" height="150"></a></div>
-						<div class="miaoshu"><a href="">米家空气净化器Pro</a></div>
-						<div class="jiage">1499元</div>
+						<div class="tu"><a href="{% url 'single_log' i.pk %}"><img src="{{ MEDIA_URL }}{{ i.img }}" width="150" height="150"></a></div>
+						<div class="miaoshu"><a href="">{{ i.title }}</a></div>
+						<div class="jiage">{{ i.price }}元</div>
 						<div class="pingjia">372人评价</div>
 						<div class="piao">
 							<a href="">
-								<span>空气好新鲜</span>
-								<span>来至于mi狼牙的评价</span>
+								<span>评论在这里</span>
+								<span>来至米粉的评价</span>
 							</a>
 						</div>
 					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:#fff"></span></div>
-						<div class="tu"><a href=""><img src="{% static 'image/3-8.jpg' %}" width="150" height="150"></a></div>
-						<div class="miaoshu"><a href="">米家电水壶</a></div>
-						<div class="jiage">99元</div>
-						<div class="pingjia">372人评价</div>
-                        		<div class="piao">
-							<a href="">
-								<span>电水壶烧水很快</span>
-								<span>来至于mi狼牙的评价</span>
-							</a>
-						</div>
-					</div>
-					<div class="remen fl">
-						<div class="xinpin"><span style="background:#fff"></span></div>
-						<div class="tu"><a href=""><img src="{% static 'image/3-9.png' %}" width="150" height="150"></a></div>
-						<div class="miaoshu"><a href="">米家led吸顶灯</a></div>
-						<div class="jiage">59元</div>
-						<div class="pingjia">775人评价</div>
-                        		<div class="piao">
-							<a href="">
-								<span>夜空中最闪亮的一颗星</span>
-								<span>来至于mi狼牙的评价</span>
-							</a>
-						</div>
-					</div>
+                    {% endfor %}
+{#					<div class="remen fl">#}
+{#						<div class="xinpin"><span style="background:#fff"></span></div>#}
+{#						<div class="tu"><a href=""><img src="{% static 'image/3-8.jpg' %}" width="150" height="150"></a></div>#}
+{#						<div class="miaoshu"><a href="">米家电水壶</a></div>#}
+{#						<div class="jiage">99元</div>#}
+{#						<div class="pingjia">372人评价</div>#}
+{#                        		<div class="piao">#}
+{#							<a href="">#}
+{#								<span>电水壶烧水很快</span>#}
+{#								<span>来至于mi狼牙的评价</span>#}
+{#							</a>#}
+{#						</div>#}
+{#					</div>#}
+{#					<div class="remen fl">#}
+{#						<div class="xinpin"><span style="background:#fff"></span></div>#}
+{#						<div class="tu"><a href=""><img src="{% static 'image/3-9.png' %}" width="150" height="150"></a></div>#}
+{#						<div class="miaoshu"><a href="">米家led吸顶灯</a></div>#}
+{#						<div class="jiage">59元</div>#}
+{#						<div class="pingjia">775人评价</div>#}
+{#                        		<div class="piao">#}
+{#							<a href="">#}
+{#								<span>夜空中最闪亮的一颗星</span>#}
+{#								<span>来至于mi狼牙的评价</span>#}
+{#							</a>#}
+{#						</div>#}
+{#					</div>#}
 					<div class="remenlast fr">
 						<div class="hongmi"><a href=""><img src="{% static 'image/3-10.jpg' %}" alt="" width="150" height="150"></a></div>
 						<div class="liulangengduo"><a href=""><img src="{% static 'image/liulangengduo.png' %}" alt=""></a></div>					

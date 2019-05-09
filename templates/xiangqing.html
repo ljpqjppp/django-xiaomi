@@ -150,8 +150,9 @@
 				<div class="bot mt20 ft20 ftbc">总计：{{ phone.price }}元</div>
 			</div>
 			<div class="xiadan ml20 mt20">
-					<input class="jrgwc"  type="button" name="jrgwc" value="立即选购" />
-					<input class="jrgwc" type="button" name="jrgwc" value="加入购物车" />
+					<input class="jrgwc"  type="button" name="jrgwc" value="立即选购"  />
+{#					<input class="jrgwc" type="button" name="jrgwc" value="加入购物车"  onclick="{% url 'gouwuche' %}"/>#}
+                    <a class="jrgwc"  href="{% url 'gouwuche' %}">加入购物车</a>
 				
 			</div>
 		</div>
