@@ -19,3 +19,4 @@ class UserPhoneComment(models.Model):
 
     def __str__(self):
         return '{}评论{}电影'.format(self.user.username, self.phone.title)
+

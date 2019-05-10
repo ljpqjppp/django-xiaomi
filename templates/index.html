@@ -36,7 +36,7 @@
 					</ul>
 				</div>
 				<div class="right fr">
-					<div class="gouwuche fr"><a href="{% url 'gouwuche' %}">购物车</a></div>
+					<div class="gouwuche fr"><a href="{% url 'showgouwuche' %}">购物车</a></div>
 					<div class="fr">
 						<ul>
                             {% if request.user.is_anonymous %}
@@ -1455,7 +1455,7 @@
 				<div class="content">
 					<div class="remen fl"><a href=""><img src="{% static 'image/3-1.jpg' %}" width="240" height="300"></a>
 					</div>
-                    {% for i in dajiadian %}
+                    {% for i,j in dajiadian.items %}
 					<div class="remen fl">
 						<div class="xinpin"><span>新品</span></div>
 						<div class="tu"><a href="{% url 'single_log' i.pk %}"><img src="{{ MEDIA_URL }}{{ i.img }}" width="150" height="150"></a></div>
@@ -1464,8 +1464,8 @@
 						<div class="pingjia">372人评价</div>
 						<div class="piao">
 							<a href="">
-								<span>洗衣机很好用！</span>
-								<span>来至于mi狼牙的评价</span>
+								<span>{{ j.context }}</span>
+								<span>{{ j.user.username }}</span>
 							</a>
 						</div>
 					</div>
@@ -1514,7 +1514,7 @@
 				<div class="content">
 					<div class="remen fl"><a href=""><img src="{% static 'image/3-6.jpg' %}" width="240" height="300"></a>
 					</div>
-                    {% for i in xiaojiadian %}
+                    {% for i,j in xiaojiadian.items %}
 
 					<div class="remen fl">
 						<div class="xinpin"><span style="background:#fff"></span></div>
@@ -1524,8 +1524,8 @@
 						<div class="pingjia">372人评价</div>
 						<div class="piao">
 							<a href="">
-								<span>评论在这里</span>
-								<span>来至米粉的评价</span>
+								<span>{{ j.context }}</span>
+								<span>{{ j.user.username }}</span>
 							</a>
 						</div>
 					</div>

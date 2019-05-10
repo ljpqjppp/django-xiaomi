@@ -1,22 +1,30 @@
 from django.shortcuts import render, HttpResponse, redirect
 from xiaomi_users.forms import UserLogin,RegForm,UserPhoneCommentForm
 from xiaomi_users.models import PhoneDetail
-# from cart.cart import Cart
-# from django.contrib.auth.decorators import login_required
+from xiaomi_views.models import PhoneCart
+
 
 
 def index(request):
 
-    star_phones = PhoneDetail.objects.filter(kind__name='star')
+    star_phones = PhoneDetail.objects.filter(kind__name='star').order_by('id')
     dajiadian = PhoneDetail.objects.filter(kind__name='dajiadian')
     xiaojiadian = PhoneDetail.objects.filter(kind__name='xiaojiadian')
     CommentModel = UserPhoneCommentForm.Meta.model
-    # comments = CommentModel.objects.all()
+    comments = CommentModel.objects.all()
+    di_dajiadian = {}
+    di_xiaojiadian = {}
+
+    for i,k in zip(dajiadian,comments[0:4]):
+        di_dajiadian[i]=k
+    for i,k in zip(xiaojiadian, comments[4:7]):
+        di_xiaojiadian[i]=k
+
 
     return render(request, 'index.html', {
                                             'star_phones':star_phones,
-                                            'dajiadian': dajiadian,
-                                            'xiaojiadian': xiaojiadian,
+                                            'dajiadian': di_dajiadian,
+                                            'xiaojiadian': di_xiaojiadian,
                                             #  'comments_da':comments_da,
                                             # 'comments_xiao': comments_xiao
                                             # 'comments': comments
@@ -37,10 +45,6 @@ def register(request):
     return render(request, 'register.html', {'login_form':longin_form,
                                           'reg_form':register_form
                                           })
-
-
-def gouwuche(request):
-    return render(request, 'gouwuche.html')
 
 
 def dingdan(request):
@@ -82,27 +86,45 @@ def search(request):
         return HttpResponse('找不到')
     return render(request, 'xiangqing.html', {'phone': phone})
 
+def addgouwuche(request):
+    http1 = request.META['HTTP_REFERER']
+    id = int(http1.split('/', -1)[-1])
+    ids = []
+    phone_ids = PhoneCart.objects.all().values('phone_id')
+    for i in phone_ids:
+        id1 = i['phone_id']
+        ids.append(id1)
+    if id not in ids:
+        num = 1
+        PhoneCart.objects.create(phone_id=id, number=num)
+    else:
+        n = PhoneCart.objects.get(phone_id=id).number
+        PhoneCart.objects.filter(phone_id=id).update(number=n + 1)
+    return render(request, 'tijiao_gouwuche.html')
+
+
+def showgouwuche(request):
+    gouwuche = PhoneCart.objects.all()
+    prices = []
+    numbers = []
+    totle = 0
+    for i in gouwuche:
+        prices.append(i.phone.price)
+    nums = PhoneCart.objects.all().values('number')
+    for num in nums:
+        num1 = num['number']
+        numbers.append(num1)
+
+    print(prices)
+    print(numbers)
+    for i,j in zip(prices, numbers):
+        one = i * j
+        totle = totle + one
+    print(totle)
+
+    return render(request, 'gouwuche.html', {'mygouwuche': gouwuche,
+                                             'totle': totle})
 
 
 
-# def add_to_cart(request, phone_id, quantity):
-#     phone = PhoneDetail.objects.get(phone_id=phone_id)
-#     cart = Cart(request)
-#     cart.add(phone, phone.price, quantity)
-#     return redirect('/')
-#
-#
-# def remove_from_cart(request, phone_id):
-#     phone = PhoneDetail.objects.get(phone_id=phone_id)
-#     cart = Cart(request)
-#     cart.remove(phone)
-#     return redirect('/cart/')
-#
-#
-# @login_required
-# def cart(request):
-#     all_categories = models.Category.objects.all()
-#     cart = Cart(request)
-#     template = get_template('cart.html')
-#     html = template.render(context=locals(), request=request)
-#     return HttpResponse(html)
+
