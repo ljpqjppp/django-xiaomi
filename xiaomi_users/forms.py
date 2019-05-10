@@ -17,6 +17,7 @@ class RegForm(forms.ModelForm):
         widgets = {
             'password':forms.PasswordInput()
         }
+        # 取消help_texts字段的显示
         help_texts = {
             'username':(''),
             'password':(''),
@@ -28,6 +29,3 @@ class UserPhoneCommentForm(forms.ModelForm):
         model = UserPhoneComment
         fields = ('user', 'phone', 'context')
 
-#
-# class Usersearch(forms.Form):
-#     phone_name = forms.CharField(max_length=20, min_length=3)

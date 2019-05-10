@@ -16,7 +16,7 @@ class PhoneDetail(models.Model):
     desc = models.CharField(max_length=1000, verbose_name='手机简介', default='暂无简介')
     online_time = models.DateField(verbose_name='上市日期')
     price = models.IntegerField(null=True, default=None, blank=True)
-    
+    hits = models.IntegerField(default=0)
     # upload to 表示把图片上传到哪里
     img = models.ImageField(upload_to='phone', null=True, default=None, blank=True)
                                                 # 表示可以不传  默认为空

@@ -7,7 +7,7 @@ from xiaomi_views.models import PhoneCart
 
 def index(request):
 
-    star_phones = PhoneDetail.objects.filter(kind__name='star').order_by('id')
+    star_phones = PhoneDetail.objects.filter(kind__name='star').order_by('-hits')
     dajiadian = PhoneDetail.objects.filter(kind__name='dajiadian')
     xiaojiadian = PhoneDetail.objects.filter(kind__name='xiaojiadian')
     CommentModel = UserPhoneCommentForm.Meta.model
@@ -25,9 +25,6 @@ def index(request):
                                             'star_phones':star_phones,
                                             'dajiadian': di_dajiadian,
                                             'xiaojiadian': di_xiaojiadian,
-                                            #  'comments_da':comments_da,
-                                            # 'comments_xiao': comments_xiao
-                                            # 'comments': comments
                                           })
 
 
@@ -68,14 +65,21 @@ def index1(request, phone_id):
                                     # 因为pk=movie_id查询出来只会有一天数据 所以切片只能为[0]，不切片他不会查询
     except Exception:
         return HttpResponse('找不到')
-    login_form = UserLogin()
-    register_form = RegForm()
+    n = phone.hits
+    PhoneDetail.objects.filter(pk=phone_id).update(hits=n+1)
+
+    print(phone.hits)
+
+
+
+
+    # login_form = UserLogin()
+    # register_form = RegForm()
     comment_form = UserPhoneCommentForm()
-    CommentModel = UserPhoneCommentForm.Meta.model
-    comments = CommentModel.objects.filter(phone_id=phone_id).order_by('-id')
-    return render(request, 'xiangqing.html', {'login_form': login_form,
-                                           "reg_form": register_form, 'phone': phone, "comment_form": comment_form,
-                                           "comments": comments})
+    # CommentModel = UserPhoneCommentForm.Meta.model
+    # comments = CommentModel.objects.filter(phone_id=phone_id).order_by('-id')
+    return render(request, 'xiangqing.html', {'phone': phone,
+                                              'conmment_form':comment_form})
 
 
 def search(request):
