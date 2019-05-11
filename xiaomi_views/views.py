@@ -44,8 +44,10 @@ def register(request):
                                           })
 
 
-def dingdan(request):
-    return render(request, 'dingdanzhongxin.html')
+def pinglunzhuanqu(request):
+    CommentModel = UserPhoneCommentForm.Meta.model
+    comments = CommentModel.objects.all().order_by('-id')
+    return render(request, 'pinglunzhuanqu.html', {'comments': comments})
 
 
 def liebiao(request):
