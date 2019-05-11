@@ -47,11 +47,11 @@
 							<li>|</li>
 							<li><a href="{% url 'register' %}" target="_blank" >注册</a></li>
 							<li>|</li>
-                            {% if request.user.is_anonymous %}
-                                <li><a href="">消息通知</a></li>
-                            {% else %}
+{#                            {% if request.user.is_anonymous %}#}
+{#                                <li><a href="">消息通知</a></li>#}
+{#                            {% else %}#}
                                 <li><a href="{% url 'pinglunzhuanqu' %}">评论专区</a></li>
-                            {% endif %}
+{#                            {% endif %}#}
 
 						</ul>
 					</div>

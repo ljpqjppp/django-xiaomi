@@ -106,7 +106,7 @@ def addgouwuche(request):
     else:
         n = PhoneCart.objects.get(phone_id=id).number
         PhoneCart.objects.filter(phone_id=id).update(number=n + 1)
-    return render(request, 'tijiao_gouwuche.html')
+    return redirect('/showgouwuche/')
 
 
 def showgouwuche(request):
