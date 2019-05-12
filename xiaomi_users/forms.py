@@ -15,7 +15,7 @@ class RegForm(forms.ModelForm):
         # fields = '__all__'  # 验证所有字段
         fields = ('username', 'password')
         widgets = {
-            'password':forms.PasswordInput()
+            'password': forms.PasswordInput()
         }
         # 取消help_texts字段的显示
         help_texts = {
