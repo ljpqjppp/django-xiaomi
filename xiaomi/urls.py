@@ -17,7 +17,7 @@ from django.conf.urls import url,include
 from django.contrib import admin
 import os
 from django.views.static import serve
-from xiaomi.settings import BASE_DIR, MEDIA_ROOT
+from xiaomi.settings import BASE_DIR, MEDIA_ROOT, STATIC_ROOT
 from xiaomi_views.views import index, login, register, addgouwuche, \
                                 pinglunzhuanqu, liebiao, self_info, index1,\
                                 search,showgouwuche
@@ -25,7 +25,8 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^index/', index, name='index'),
     url(r'^user/', include('xiaomi_users.urls')),
-    url(r'^static/(?P<path>.*)$', serve, {'document_root': os.path.join(BASE_DIR, 'static')}),
+    # url(r'^static/(?P<path>.*)$', serve, {'document_root': os.path.join(BASE_DIR, 'static')}),
+    url(r'^static/(?P<path>.*)$', serve, {'document_root': STATIC_ROOT}),
     url(r'^login/', login, name='login'),
     url(r'^register/', register, name='register'),
     url(r'^media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT}),

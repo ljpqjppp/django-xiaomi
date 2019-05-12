@@ -89,7 +89,7 @@ def search(request):
     try:
         phone = PhoneDetail.objects.filter(title=phone_name)[0]
     except Exception:
-        return HttpResponse('找不到')
+        return HttpResponse('抱歉，您搜索的商品不存在！')
     return render(request, 'xiangqing.html', {'phone': phone})
 
 def addgouwuche(request):
